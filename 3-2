@@ -1,0 +1,88 @@
+struct nodo(){
+    struct nodo *sig, *ant;
+    int info;
+};
+
+int insafter(struct nodo *pos, int num){
+    struct nodo *q;
+    
+    if(pos!= NULL){
+        q = getnode();
+        if(q != NULL){
+            if(pos -> sig == NULL){
+                q -> info = num;
+                q -> sig = NULL;
+                pos -> sig = q;
+                q -> ant = pos;
+            }else{
+                q -> info = num;
+                q -> ant = pos;
+                q -> sig = pos -> sig;
+                pos -> sig = q;
+                q -> sig -> ant = q;
+            }
+            
+            return 1;
+        }
+    }
+    
+    return 0;
+}
+
+int delthis (struct nodo *pos, int &num){
+    struct nodo *salvo;
+    
+    if(pos != NULL){
+        
+        if(pos -> sig != NULL){
+            num = pos -> info;
+            pos -> ant -> sig = pos -> sig;
+        }
+        else{
+            num = pos -> info;
+            pos -> ant -> sig = pos -> sig;
+            pos -> sig -> ant = pos -> ant;
+        }
+        freenode (salvo);
+        return 1;
+    }
+    
+    return 0;
+    
+}
+
+int insbefore(struct nodo *pos, int num){
+    struct nodo *q;
+    if(pos != NULL){
+        q = getnode ();
+        if(q != NULL){
+            if(q -> ant == NULL){
+                q -> ant = pos -> ant;
+                pos -> ant = q;
+                q -> sig = pos;
+                q -> info = num;
+            }
+            else {
+                q -> info = num;
+                q -> ant = pos -> ant;
+                pos -> ant = q;
+                q -> ant -> sig = q;
+                q -> sig = pos;
+            }
+            return 1;
+        }
+    }
+    return 0;
+}
+
+struct nodo *getnode(void){
+	struct nodo *q;
+	q = (struct nodo *) malloc (sizeof(struct nodo));
+	if( q!= NULL);
+		q -> sgt = NULL;
+	return q;
+}
+
+void free node (struct nodo *salvo){
+	free (salvo);
+}
